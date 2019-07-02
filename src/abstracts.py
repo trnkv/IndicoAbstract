@@ -170,7 +170,8 @@ def check_abstracts_consistency(abstracts):
             languages_set.remove('NONE')
         if len(languages_set) != 1:
             print("More than one language is used in abstract with Id: " + str(abstract.abstract_id))
-            print("Email to contact Primary author: ", [author.email for author in abstract.authors if author.is_primary_author])
+            print("Email to contact Primary Author: ", [author.email for author in abstract.authors if author.is_primary_author], "\n",
+                "Primary Author name: ", [author.first_name + " " + author.family_name for author in abstract.authors if author.is_primary_author])
             from pprint import pprint as pp
             pp(languages)
             print('_______________________________________________________')
