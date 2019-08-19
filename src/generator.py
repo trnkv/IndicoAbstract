@@ -140,9 +140,9 @@ def generate_book(conference_obj, list_abstracts, doctpl_filename, finaldocument
                             aff_index = index + 1
                             break
                     new_paragraph.add_run(str(aff_index)).font.superscript = True
-                # print email index only for Primary Author:
+                # print email index only for Speaker:
                 if len(all_authors) > 1:
-                    if all_authors[i].is_primary_author:
+                    if all_authors[i].is_speaker:
                         if all_authors[i].email != "":
                             if len(all_affiliations_nonrepeat) > 1:
                                 new_paragraph.add_run("," +
@@ -172,21 +172,21 @@ def generate_book(conference_obj, list_abstracts, doctpl_filename, finaldocument
                     typed_affiliations.append(affiliation)
 
             # write the e-mail
-            count_primary_authors = 0
+            #count_primary_authors = 0
             new_paragraph = document.add_paragraph(style=styles["GRID_email"])
             new_paragraph.add_run("E-mail: ")
             email_index = 0  # letter for the email
             for i in range(0, len(all_authors)):
-                if all_authors[i].is_primary_author:
+                if all_authors[i].is_speaker:
                     if all_authors[i].email != "":
-                        if count_primary_authors > 0:
-                            if i > 0:
-                                new_paragraph.add_run(", ")
+                        #if count_primary_authors > 0:
+                        if i > 0:
+                            new_paragraph.add_run(", ")
                         if len(all_authors) > 1:
                             new_paragraph.add_run(string.ascii_lowercase[email_index]).font.superscript = True
                         email_index += 1
                         new_paragraph.add_run(all_authors[i].email)
-                        count_primary_authors += 1
+                        #count_primary_authors += 1
 
             #  write the content
             for x in abstract.content.split(chr(10)):

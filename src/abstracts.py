@@ -23,13 +23,13 @@ class Person:
     """Stores information about first name, family name, email and affiliation
         of a person."""
 
-    def __init__(self, first_name, family_name, email, affiliation, is_primary_author):
+    def __init__(self, first_name, family_name, email, affiliation, is_speaker):
         """Class constructor."""
         self.first_name = first_name
         self.family_name = family_name
         self.email = email
         self.affiliation = affiliation
-        self.is_primary_author = is_primary_author
+        self.is_speaker = is_speaker
 
 def create_dict_standarts(csv_file):
     """Creates a dictionary from CSV file."""
@@ -90,13 +90,13 @@ def parse_abstracts_xml(abstracts_xmlfilename, csv_file):
                 else:
                     unknown_affiliations.append(affiliation)
 
-
-                primary_author = Person(first_name=str(child[0].text),
+            if child.tag == "Speaker":
+                speaker = Person(first_name=str(child[0].text),
                                         family_name=str(child[1].text),
                                         email=str(child[2].text),
                                         affiliation=affiliation,
-                                        is_primary_author=True if child.tag == "PrimaryAuthor" else False)
-                authors.append(primary_author)
+                                        is_speaker=True)
+                authors.append(speaker)
                 continue
 
             if child.tag == "Track" and not flag:
@@ -170,8 +170,8 @@ def check_abstracts_consistency(abstracts):
             languages_set.remove('NONE')
         if len(languages_set) != 1:
             print("More than one language is used in abstract with Id: " + str(abstract.abstract_id))
-            print("Email to contact Primary Author: ", [author.email for author in abstract.authors if author.is_primary_author], "\n",
-                "Primary Author name: ", [author.first_name + " " + author.family_name for author in abstract.authors if author.is_primary_author])
+            print("Email to contact Speaker: ", [author.email for author in abstract.authors if author.is_speaker], "\n",
+                "Speaker's name: ", [author.first_name + " " + author.family_name for author in abstract.authors if author.is_speaker])
             from pprint import pprint as pp
             pp(languages)
             print('_______________________________________________________')
