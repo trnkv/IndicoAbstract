@@ -6,7 +6,7 @@ Includes a call to the final document generation function.
 from os import path
 
 from src.conference import parse_conference_xml
-from src.abstracts import parse_abstracts_xml, check_abstracts_consistency, check_abstract_count_symbols
+from src.abstracts import parse_abstracts_xml, check_abstracts_consistency, check_abstract_count_words
 from src.generator import generate_book
 
 if __name__ == "__main__":
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     abstracts = parse_abstracts_xml(ABSTRACTS_XMLFILENAME, CSV_FILENAME)
 
     check_abstracts_consistency(abstracts)
-    check_abstract_count_symbols(abstracts)
+    check_abstract_count_words(abstracts)
 
     generate_book(conference, abstracts, DOCTPL_FILENAME, FINALDOCUMENT_FILENAME)
 

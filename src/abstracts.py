@@ -90,13 +90,18 @@ def parse_abstracts_xml(abstracts_xmlfilename, csv_file):
                 else:
                     unknown_affiliations.append(affiliation)
 
-            if child.tag == "Speaker":
-                speaker = Person(first_name=str(child[0].text),
+                author = Person(first_name=str(child[0].text),
                                         family_name=str(child[1].text),
                                         email=str(child[2].text),
                                         affiliation=affiliation,
-                                        is_speaker=True)
-                authors.append(speaker)
+                                        is_speaker=False)
+                authors.append(author)
+                continue
+
+            if child.tag == "Speaker":
+                for author in authors:
+                    if author.first_name == str(child[0].text) and author.family_name == str(child[1].text):
+                        author.is_speaker=True
                 continue
 
             if child.tag == "Track" and not flag:
@@ -177,12 +182,13 @@ def check_abstracts_consistency(abstracts):
             print('_______________________________________________________')
     print("=======================================================")
 
-def check_abstract_count_symbols(abstracts):
+def check_abstract_count_words(abstracts):
     for abstract in abstracts:
 
         # Check count of symbols in abstract's content
-        if len(abstract.content) >= 1700 and len(abstract.content) < 2200:
-            print('WARNING: too many symbols in content of abstract with Id= ', str(abstract.abstract_id), ': ', len(abstract.content), ' symbols')
-        elif len(abstract.content) >= 2200:
-            print('FATAL: extremely many symbols in content of abstract with Id= ', str(abstract.abstract_id), ': ', len(abstract.content), ' symbols')
+        words = len(set(abstract.content.split()))
+        if words < 100:
+            print('WARNING: too few words in content of abstract with Id= ', str(abstract.abstract_id), ': ', words, ' words')
+        if words > 360:
+            print('WARNING: too many words in content of abstract with Id= ', str(abstract.abstract_id), ': ', words, ' words')
 

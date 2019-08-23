@@ -171,22 +171,22 @@ def generate_book(conference_obj, list_abstracts, doctpl_filename, finaldocument
                     # add affiliation to the list of already written on the page:
                     typed_affiliations.append(affiliation)
 
-            # write the e-mail
-            #count_primary_authors = 0
+            # write the e-mail only for Speaker
+            count_speakers = 0
             new_paragraph = document.add_paragraph(style=styles["GRID_email"])
             new_paragraph.add_run("E-mail: ")
-            email_index = 0  # letter for the email
+            email_index = 0 # letter for the email
             for i in range(0, len(all_authors)):
                 if all_authors[i].is_speaker:
                     if all_authors[i].email != "":
-                        #if count_primary_authors > 0:
-                        if i > 0:
-                            new_paragraph.add_run(", ")
+                        if count_speakers > 0:
+                            if i > 0:
+                                new_paragraph.add_run(", ")
                         if len(all_authors) > 1:
                             new_paragraph.add_run(string.ascii_lowercase[email_index]).font.superscript = True
-                        email_index += 1
+                            email_index += 1
                         new_paragraph.add_run(all_authors[i].email)
-                        #count_primary_authors += 1
+                        count_speakers += 1
 
             #  write the content
             for x in abstract.content.split(chr(10)):
