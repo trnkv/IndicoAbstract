@@ -9,7 +9,7 @@ Generator of Indico's Book of Abstract.
 
 3. `python3 main.py`
 
-## To change path to XML files you should open 'main.py' in a text editor and replace required variables:
+## To change path to input files you should open 'main.py' in a text editor and replace required variables:
 `CONFERENCEINFO_XMLFILENAME`
 
 `ABSTRACTS_XMLFILENAME`
