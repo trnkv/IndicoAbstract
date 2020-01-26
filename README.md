@@ -3,9 +3,9 @@ Generator of Indico's Book of Abstract.
 
 ## To start the program for the first time you should open folder "src" and run commands in the terminal one by one:
 
-1. `pip3 install lxml`
+1. `pip3 install lxml --user`
 
-2. `pip3 install docxtpl`
+2. `pip3 install docxtpl --user`
 
 3. `python3 main.py`
 
