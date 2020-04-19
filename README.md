@@ -1,13 +1,9 @@
 # Welcome to IndicoAbstract's documentation!
 Generator of Indico's Book of Abstract.
 
-## To start the program for the first time you should run this commands in the terminal one by one:
+## To start the program for the first time you should run this command in the terminal:
 
-1. `pip3 install lxml --user`
-
-2. `pip3 install docxtpl --user`
-
-3. `python3 main.py`
+`pip3 install -r requirements.txt`
 
 ## To change path to input files you should open 'main.py' in a text editor and replace required variables:
 `CONFERENCEINFO_XMLFILENAME`
